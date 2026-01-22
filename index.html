@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Intelligence - AI-Powered OCR & Validation Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Title and Conclusion slides - Dark gradient */
+        .slide-title, .slide-conclusion {
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 50%, #155e75 100%);
+            color: white;
+            text-align: center;
+        }
+
+        /* Content slides - Light background */
+        .slide-content {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            /* ensure perfect circle */
+            object-fit: contain;
+            /* or 'cover' if you want it fully filled */
+            border-radius: 50%;
+            /* makes it round */
+            background: white;
+            /* optional: nice contrast on gradient */
+            padding: 12px;
+            /* optional: breathing space */
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #0891b2;
+        }
+
+        .slide-title h2, .slide-conclusion h2 {
+            color: white;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #0e7490;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.85;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0891b2;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #ef4444;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .problem-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .problem-text {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-text {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .process-step {
+            flex: 1;
+            text-align: center;
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #0891b2;
+            font-weight: bold;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #0891b2;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-text {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .capability-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .capability-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .capability-text {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .pipeline-stages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stage-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 3px solid #0891b2;
+        }
+
+        .stage-number {
+            width: 40px;
+            height: 40px;
+            background: #0891b2;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .stage-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .stage-text {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .tech-category {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0891b2;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-list {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .timeline {
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #0891b2;
+        }
+
+        .timeline-week {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-text {
+            color: #64748b;
+        }
+
+        .cta-text {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: white;
+            color: #0891b2;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .checkmarks {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .checkmark {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .company-info {
+            text-align: center;
+            margin-top: 2rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .problem-grid, .features-grid, .capabilities-grid { 
+                grid-template-columns: 1fr; 
+            }
+            .pipeline-stages { grid-template-columns: 1fr; }
+            .process-steps { flex-direction: column; }
+            .process-step:not(:last-child)::after { 
+                content: '↓'; 
+                right: auto;
+                left: 50%;
+                top: auto;
+                bottom: -2rem;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide slide-title">
+        <div class="container">
+            <img src="./PGAGI_LOGO.png" alt="PG-AGI Logo" class="logo"><br>
+            <div class="badge">✓ Explainable AI Pipeline</div>
+            <h1>DOCUMENT INTELLIGENCE SYSTEM</h1>
+            <p class="subtitle">PHASE-1</p>
+            <p class="subtitle">AI-Powered OCR & Validation Platform</p>
+            <p class="tagline">Transform messy PDFs and images into reliable, structured data with full transparency at every stage</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">Modular</div>
+                    <div class="stat-label">Pipeline Design</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Transparency</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4 Weeks</div>
+                    <div class="stat-label">Delivery Timeline</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div class="slide slide-content">
+        <div class="container">
+            <h2>The Challenge</h2>
+            <p class="tagline">Real-world document processing faces critical accuracy and reliability barriers</p>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📄</div>
+                    <div class="problem-title">Messy Document Quality</div>
+                    <div class="problem-text">Real-world PDFs and images often have poor quality, skewed scans, handwriting, and mixed formats that break traditional OCR systems</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">❓</div>
+                    <div class="problem-title">Hidden Uncertainty</div>
+                    <div class="problem-text">Most OCR solutions hide confidence levels and fail silently, making it impossible to know which extracted data can be trusted</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">⚠️</div>
+                    <div class="problem-title">Inconsistent Data</div>
+                    <div class="problem-text">Multiple documents with conflicting information go undetected, leading to errors in downstream processes and decision-making</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🔍</div>
+                    <div class="problem-title">No Explainability</div>
+                    <div class="problem-text">Black-box AI systems provide no insight into why extraction failed or succeeded, making debugging and improvement impossible</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Solution Overview -->
+    <div class="slide slide-content">
+        <div class="container">
+            <h2>Meet Document Intelligence Platform</h2>
+            <p class="tagline">Modular, explainable pipeline that surfaces uncertainty at every stage</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-title">Advanced OCR Processing</div>
+                    <div class="feature-text">Tesseract OCR or Google Document AI with intelligent preprocessing—deskewing, noise reduction, and multi-language support with full confidence metadata</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-title">AI Classification & Extraction</div>
+                    <div class="feature-text">Document type identification with confidence scoring, followed by structured field extraction with per-field confidence and partial-extraction support</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <div class="feature-title">Cross-Document Validation</div>
+                    <div class="feature-text">Automatic detection of inconsistencies across multiple documents—mismatched names, dates, identifiers—with structured issue reporting</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Readiness Assessment</div>
+                    <div class="feature-text">Clear final status—Ready, Needs Review, or Not Ready—with explicit reasoning based on OCR confidence, extraction completeness, and validation results</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: How It Works -->
+    <div class="slide slide-content">
+        <div class="container">
+            <h2>How It Works</h2>
+            <p class="tagline">Transparent, stage-driven workflow with explicit confidence at every step</p>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Upload</div>
+                    <div class="step-text">Documents stored as-is in raw storage. No processing yet—full traceability preserved.</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">OCR</div>
+                    <div class="step-text">Explicit OCR trigger extracts text with page and document-level confidence metadata.</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Extract</div>
+                    <div class="step-text">AI classifies document type, extracts structured fields with per-field confidence scores.</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Validate</div>
+                    <div class="step-text">Cross-document comparison detects conflicts and generates structured issue reports.</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Assess</div>
+                    <div class="step-text">Final readiness status with explicit reasoning—Ready, Needs Review, or Not Ready.</div>
+                </div>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <h3>Modular & Rerunnable Architecture</h3>
+                <p style="color: #64748b;">Each stage runs independently and can be re-executed without affecting others—enabling debugging, testing, and iterative improvement without re-uploading documents</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Core Capabilities -->
+    <div class="slide slide-content">
+        <div class="container">
+            <h2>Core Capabilities</h2>
+            <p class="tagline">Production-grade features designed for reliability and explainability</p>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-title">📑 Intelligent OCR Pipeline</div>
+                    <div class="capability-text">Handles poor-quality scans with preprocessing (deskewing, noise reduction). Supports both Tesseract OCR and Google Document AI. Outputs raw text plus page-level and document-level confidence for full transparency.</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-title">🎯 Document Classification</div>
+                    <div class="capability-text">AI-powered document type identification with confidence scoring. Explicitly marks low-confidence or unknown documents. Classification results guide downstream field extraction logic.</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-title">📋 Structured Data Extraction</div>
+                    <div class="capability-text">Per-document-type field extraction into normalized JSON. Each field includes confidence score. Supports partial extraction and clearly signals missing or uncertain data without hiding failures.</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-title">🔄 Cross-Document Validation</div>
+                    <div class="capability-text">Compares extracted fields across documents to detect conflicts (names, dates, IDs). Generates structured issue list with severity context. No automatic resolution—keeps behavior predictable.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Pipeline Stages -->
+    <div class="slide slide-content">
+        <div class="container">
+            <h2>Modular Pipeline Architecture</h2>
+            <p class="tagline">Six independent stages with clear inputs, outputs, and confidence tracking</p>
+            <div class="pipeline-stages">
+                <div class="stage-card">
+                    <div class="stage-number">1</div>
+                    <div class="stage-title">Document Ingestion</div>
+                    <div class="stage-text">Raw PDF/image upload and storage as-is for full traceability</div>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">2</div>
+                    <div class="stage-title">OCR Processing</div>
+                    <div class="stage-text">Text extraction with preprocessing and confidence metadata</div>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">3</div>
+                    <div class="stage-title">Classification</div>
+                    <div class="stage-text">Document type identification with confidence scoring</div>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">4</div>
+                    <div class="stage-title">Extraction</div>
+                    <div class="stage-text">Structured field extraction with per-field confidence</div>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">5</div>
+                    <div class="stage-title">Validation</div>
+                    <div class="stage-text">Cross-document inconsistency detection and issue reporting</div>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">6</div>
+                    <div class="stage-title">Readiness</div>
+                    <div class="stage-text">Final status assessment with explicit reasoning</div>
+                </div>
+            </div>
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-top: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
+                <p style="color: #64748b;"><strong>Testability First:</strong> Each stage can be independently verified, rerun, and debugged—making the entire pipeline transparent and trustworthy</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Technology Stack & Timeline -->
+    <div class="slide slide-content">
+        <div class="container">
+            <h2>Technology & 3-Week Timeline</h2>
+            <p class="tagline">Production-ready delivery with modern, explainable architecture</p>
+            <div class="tech-stack" style="margin-bottom: 3rem;">
+                <div class="tech-item">
+                    <div class="tech-category">Frontend</div>
+                    <div class="tech-list">Next.js, TailwindCSS, shadcn/ui</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-category">Backend</div>
+                    <div class="tech-list">FastAPI, Python, MongoDB</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-category">OCR Engine</div>
+                    <div class="tech-list">Tesseract / Google Document AI</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-category">AI/ML</div>
+                    <div class="tech-list">LLM-based Classification & Extraction</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-category">Preprocessing</div>
+                    <div class="tech-list">OpenCV (deskew, noise reduction)</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-category">Deployment</div>
+                    <div class="tech-list">Docker, GCP Cloud Run, CI/CD</div>
+                </div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-week">Week 1: Setup & Core Foundation</div>
+                    <div class="timeline-text">Scope finalization, FastAPI backend setup, document ingestion APIs, MongoDB schema design, Next.js dashboard initialization</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Week 2: OCR Pipeline, Classification & Structured Extraction</div>
+                    <div class="timeline-text">Structured data extraction with per-field confidence, OCR integration (Tesseract/Google), preprocessing implementation, confidence metadata storage, document classification agent development</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Week 3: Extraction, Validation Readiness Logic, Testing & Deployment</div>
+                    <div class="timeline-text">Cross-document validation engine, issue detection and reporting logic, Readiness assessment engine, end-to-end testing, edge case validation, Docker deployment, CI/CD setup, final demo and handover</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Call to Action -->
+    <div class="slide slide-conclusion">
+        <div class="container">
+            <img src="./PGAGI_LOGO.png" alt="PG-AGI Logo" class="logo">
+            <h2>Transform Messy Documents Into Trusted Data</h2>
+            <p class="cta-text">Explainable AI pipeline that surfaces confidence and uncertainty at every stage</p>
+            <div class="cta-buttons">
+                <a href="https://pgagi.in/" class="btn btn-primary">Schedule Demo</a>
+                <a href="https://docs.google.com/document/d/1J14Y0Jafl1e01xwXCuzfEMrUYVN3owe_adCpcW6DMKY/edit?usp=sharing" class="btn btn-secondary">View Technical Details</a>
+            </div>
+            <div class="checkmarks">
+                <div class="checkmark">✓ Full Transparency</div>
+                <div class="checkmark">✓ Modular Pipeline</div>
+                <div class="checkmark">✓ 4-Week Delivery</div>
+                <div class="checkmark">✓ Confidence Tracking</div>
+            </div>
+            <div class="company-info">
+                <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Powered by PG-AGI</p>
+                <p>45+ AI Specialists | Trusted by Leading Enterprises</p>
+                <p style="margin-top: 1rem;">contact@pgagi.com | pgagi.in</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
